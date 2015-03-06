@@ -33,12 +33,12 @@ public class EavesdropResources {
 	}
 	
 	public static DataSource setupDataSource (String url) {
-        BasicDataSource ds = new BasicDataSource();
-        ds.setUsername("ccl2of4");
-        ds.setPassword("");
-        ds.setUrl(url);
-        return ds;
-    }
+		BasicDataSource ds = new BasicDataSource();
+		ds.setUsername("ccl2of4");
+		ds.setPassword("");
+		ds.setUrl(url);
+		return ds;
+	}
 	
 	@POST
 	@Path("/projects")
