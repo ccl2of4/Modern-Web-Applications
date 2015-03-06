@@ -58,7 +58,7 @@ public class Assignment7Resources {
 		} catch (Exception e) {	
 			e.printStackTrace ();
 		}
-        String json = new ObjectMapper().writeValueAsString(meetingInfo);
+		String json = new ObjectMapper().writeValueAsString(meetingInfo);
 		return json;
 	}
 }
