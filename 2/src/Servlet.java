@@ -60,7 +60,8 @@ public class Servlet extends HttpServlet {
 				currentUsername = c.getValue();
 			if(userLogins.get (currentUsername) == null)
 				currentUsername = null;
-			break;}
+			break;
+		}
 		else logger.log (Level.CONFIG, "No cookies found.");
 		
 		logger.log (Level.INFO, (currentUsername == null ? "No user currently" : currentUsername) + " logged in.");
@@ -119,6 +120,7 @@ public class Servlet extends HttpServlet {
 			throws ServletException, IOException
 	{
 		int buttonType = Integer.parseInt (request.getParameter (BUTTONTYPE));
+		
 		if (buttonType == BUTTONTYPESUBMIT) {
 			logger.log (Level.INFO, "Handling search submission attempt.");
 			String urlString = request.getParameter (CONSTRUCTEDURL);
@@ -130,7 +132,8 @@ public class Servlet extends HttpServlet {
 				response.getWriter().print (html);}
 			else
 				logger.log (Level.WARNING, "No page found for given search parameters.");
-			response.getWriter().print(loggedInForm (error));}
+			response.getWriter().print(loggedInForm (error));
+		}
 		
 		else if (buttonType == BUTTONTYPELOGOUT) {
 			logger.log (Level.INFO, "Logging out user.");
@@ -138,7 +141,8 @@ public class Servlet extends HttpServlet {
 			cookie.setMaxAge (1000);
 			response.addCookie (cookie);
 			currentUsername = null;
-			response.getWriter().print(initialForm ());}
+			response.getWriter().print(initialForm ());
+		}
 	}
 	
 	String initialForm () {return initialForm(null, null, null);}
@@ -232,7 +236,8 @@ public class Servlet extends HttpServlet {
 			logger.log (Level.INFO, "Adding user " + username);
 			userLogins.put (username, password);
 			userHistory.put (username, new ArrayList<String>());
-			writeHashMap (userLogins, USERLOGINSPATH);}
+			writeHashMap (userLogins, USERLOGINSPATH);
+		}
 		else
 			logger.log (Level.INFO, "User " + username + " already exists");
 		return result;
@@ -243,7 +248,8 @@ public class Servlet extends HttpServlet {
 		if (result) {
 			logger.log (Level.INFO, "History for " + username + " is being added.");
 			list.add (urlString);
-			writeHashMap (userHistory, USERHISTORYPATH);}
+			writeHashMap (userHistory, USERHISTORYPATH);
+		}
 		else {
 			logger.log (Level.INFO, "History for " + username + " could not be added. Either the user doesn't exist or the user's state is corrupt.");
 		}
