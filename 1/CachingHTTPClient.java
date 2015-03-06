@@ -197,17 +197,17 @@ public class CachingHTTPClient {
 
 	public static HashMap<String,String> retrieveMetaData (String path) {
 		HashMap<String, String> map = null;
-    	try {
-		FileInputStream fileIn = new FileInputStream(path + MetaDataExtension);
-		ObjectInputStream in = new ObjectInputStream(fileIn);
-		Object obj = in.readObject ();
-		map = (HashMap<String,String>) obj;
-		in.close();
-		fileIn.close();
-    	} catch(IOException i) {
-    	} catch(ClassNotFoundException c) {
-		c.printStackTrace();
-	    }
+		try {
+			FileInputStream fileIn = new FileInputStream(path + MetaDataExtension);
+			ObjectInputStream in = new ObjectInputStream(fileIn);
+			Object obj = in.readObject ();
+			map = (HashMap<String,String>) obj;
+			in.close();
+			fileIn.close();
+		} catch(IOException i) {
+		} catch(ClassNotFoundException c) {
+			c.printStackTrace();
+		}
 	    return map;
   	}
 
@@ -232,7 +232,7 @@ public class CachingHTTPClient {
 				System.exit (1);
 			}
 		}
-	return directory + ( url.toString ().replace ('/','-').replace ('.','-').replace (':','-') );
+		return directory + ( url.toString ().replace ('/','-').replace ('.','-').replace (':','-') );
 	}
 }
 
