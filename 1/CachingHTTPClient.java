@@ -160,7 +160,7 @@ public class CachingHTTPClient {
 			writeMetaData (connection, path + MetaDataExtension);
 
 			while ( (n = input.read(buffer)) != -1)
-			  if (n > 0) output.write(buffer, 0, n);
+				if (n > 0) output.write(buffer, 0, n);
 
 		} catch (IOException e2) {
 			System.out.println("Failed to write cache file.");
@@ -183,30 +183,30 @@ public class CachingHTTPClient {
 			map.put (CacheControlKey, connection.getHeaderField("Cache-Control"));
 			map.put (ConnectionKey, connection.getHeaderField("Connection"));
 
-      		FileOutputStream fileOut = new FileOutputStream(path + MetaDataExtension);
-      		ObjectOutputStream out = new ObjectOutputStream(fileOut);
-      		out.writeObject(map);
-      		out.close();
-      		fileOut.close();
+			FileOutputStream fileOut = new FileOutputStream(path + MetaDataExtension);
+			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+			out.writeObject(map);
+			out.close();
+			fileOut.close();
 
-    	} catch(IOException i) {
-    		System.out.println ("Failed to write metadata file.");
-    		System.exit (1);
- 		}
+		} catch(IOException i) {
+			System.out.println ("Failed to write metadata file.");
+			System.exit (1);
+		}
 	}
 
 	public static HashMap<String,String> retrieveMetaData (String path) {
 		HashMap<String, String> map = null;
     	try {
-    		FileInputStream fileIn = new FileInputStream(path + MetaDataExtension);
-	      	ObjectInputStream in = new ObjectInputStream(fileIn);
-      		Object obj = in.readObject ();
-      		map = (HashMap<String,String>) obj;
-      		in.close();
-      		fileIn.close();
+		FileInputStream fileIn = new FileInputStream(path + MetaDataExtension);
+		ObjectInputStream in = new ObjectInputStream(fileIn);
+		Object obj = in.readObject ();
+		map = (HashMap<String,String>) obj;
+		in.close();
+		fileIn.close();
     	} catch(IOException i) {
     	} catch(ClassNotFoundException c) {
-	      	c.printStackTrace();
+		c.printStackTrace();
 	    }
 	    return map;
   	}
@@ -222,18 +222,17 @@ public class CachingHTTPClient {
 
 	public static String fileSystemPathForURL(URL url) {
 		final String directory = "/tmp/ccl676/assignment1/";
-	  File dir = new File(directory);
+		File dir = new File(directory);
 
-	  if (!dir.exists()) {
-	    try {
-	    	dir.mkdirs();
-	    } catch (SecurityException se) {
-	    	System.out.println ("Couldn't create cache directory.");
-	    	System.exit (1);
-	    }
-	  }
-
-		return directory + ( url.toString ().replace ('/','-').replace ('.','-').replace (':','-') );
+		if (!dir.exists()) {
+			try {
+				dir.mkdirs();
+			} catch (SecurityException se) {
+				System.out.println ("Couldn't create cache directory.");
+				System.exit (1);
+			}
+		}
+	return directory + ( url.toString ().replace ('/','-').replace ('.','-').replace (':','-') );
 	}
 }
 
